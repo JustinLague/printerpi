@@ -1,0 +1,6 @@
+--- 
+
+- name: MOTD
+  template: 
+    src: motd
+    dest: /etc/motd

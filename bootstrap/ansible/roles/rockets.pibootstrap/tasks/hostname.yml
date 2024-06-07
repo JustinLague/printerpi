@@ -1,0 +1,17 @@
+---
+
+- name: Set Hostname
+  hostname: 
+    name: printer-pi
+    use: systemd
+
+- name: Remove local hosts from /etc/hosts file
+  lineinfile:
+    dest: /etc/hosts
+    regexp: '127.0.0.1 .+'
+    state: absent
+
+- name: Add hostname in /etc/hosts file
+  lineinfile:
+    dest: /etc/hosts
+    line: '127.0.0.1 printer-pi'

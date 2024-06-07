@@ -1,0 +1,11 @@
+---
+
+- include_tasks: "{{ file }}"
+  with_items: 
+    - printerpiuser.yml
+    - basepackages.yml
+    - hostname.yml
+    - motd.yml
+    
+  loop_control:
+    loop_var: file

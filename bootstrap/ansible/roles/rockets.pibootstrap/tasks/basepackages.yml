@@ -1,0 +1,33 @@
+---
+
+# os - set default target
+
+- name: Change default target to multi-user.target
+  file:
+    src: /lib/systemd/system/multi-user.target
+    dest: /etc/systemd/system/default.target
+    state: link
+
+# packages - perform first dist upgrade
+
+- name: check initial dist upgrade status
+  stat:
+    path: /etc/dist_upgrade_done
+  register: dist_upgrade_done
+
+- name: Perform initial dist upgrade
+  apt:
+    upgrade: dist
+    update_cache: yes
+  when: not dist_upgrade_done.stat.exists
+
+# packages - install common tools
+
+- name: Install tools
+  apt:
+    name:
+      - i2c-tools
+      - python3-pip
+      - python3-venv
+      - nano
+    state: present

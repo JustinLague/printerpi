@@ -1,0 +1,20 @@
+---
+- name: Setup user
+  hosts: all
+  become: false
+
+  tasks:
+    - name: Set up authorized keys
+      authorized_key:
+        user: "{{ ansible_user_id }}"
+        state: present
+        key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+
+- name: Setup system
+  hosts: all
+  become: true
+  roles:
+    - name: rockets.pibootstrap
+    - name: geerlingguy.pip
+    - name: geerlingguy.redis
+    - name: weareinteractive.openssl

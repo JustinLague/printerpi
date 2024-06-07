@@ -1,0 +1,34 @@
+---
+
+- name: Add printer-pi user to sudoers
+  copy:
+    content: |
+      printer-pi ALL=(ALL) NOPASSWD: ALL
+    dest: /etc/sudoers.d/010_printer-pi-nopasswd
+    force: no  # only if missing
+    owner: root
+    group: root
+    mode: 0440
+
+- name: Give printer-pi user access to journalctl logs
+  user:
+    name: printer-pi
+    groups: systemd-journal
+    append: true
+
+- name: quality of life - setup aliases
+  become: false
+  lineinfile:
+    dest: ~/.bash_aliases
+    create: true
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+    state: present
+    validate: 'bash -c "source %s"'
+  with_items:
+    - regexp: "^alias l="
+      line: "alias l='ls -la'"
+    - regexp: "^alias ipwatch="
+      line: alias ipwatch='watch -n 0.5 "ip -br a; echo; ip -br r"'
+    - regexp: "^PS1="
+      line: PS1='${debian_chroot:+($debian_chroot)}\[\033[01;31m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w \$\[\033[00m\] '

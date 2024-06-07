@@ -1,0 +1,3 @@
+[console_scripts]
+printerpi = bluetooth_light.__main__:main
+

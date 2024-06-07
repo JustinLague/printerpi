@@ -1,0 +1,9 @@
+---
+- name: Run Role
+  hosts: all
+  become: true
+
+  tasks:
+    - name: run Role
+      include_role:
+        name: "{{ MY_ROLE }}"
