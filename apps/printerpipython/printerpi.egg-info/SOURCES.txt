@@ -1,9 +1,0 @@
-setup.py
-bluetooth_light/__init__.py
-bluetooth_light/__main__.py
-printerpi.egg-info/PKG-INFO
-printerpi.egg-info/SOURCES.txt
-printerpi.egg-info/dependency_links.txt
-printerpi.egg-info/entry_points.txt
-printerpi.egg-info/requires.txt
-printerpi.egg-info/top_level.txt
